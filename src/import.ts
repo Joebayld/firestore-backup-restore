@@ -16,7 +16,7 @@ import {
  * @param {IImportOptions} options
  */
 export const restore = (
-  fileName: string,
+  fileName: string | Object,
   options: IImportOptions
 ): Promise<any> => {
   const db = admin.firestore()
@@ -205,7 +205,8 @@ const startUpdating = (
       .doc(docId)
       .set(data)
       .then(() => {
-        !options.silenceLogs && console.log(`${docId} was successfully added to firestore!`)
+        options?.silenceLogs &&
+          console.log(`${docId} was successfully added to firestore!`)
         resolve({
           status: true,
           message: `${docId} was successfully added to firestore!`,
